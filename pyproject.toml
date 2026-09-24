@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mcp-proxmox"
-version = "0.1.0"
+version = "1.0.0"
 description = "Read-only MCP server for the Proxmox VE API"
 authors = ["ADevillers"]
 license = "MIT"
@@ -10,7 +10,8 @@ repository = "https://github.com/ADevillers/mcp-proxmox"
 packages = [{ include = "mcp_proxmox", from = "src" }]
 keywords = ["mcp", "proxmox", "homelab"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
+
     "Intended Audience :: System Administrators",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",

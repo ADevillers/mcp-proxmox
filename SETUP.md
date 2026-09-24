@@ -26,7 +26,8 @@ Datacenter → Permissions → Add:
 | Role | `PVEAuditor` |
 | Propagate | yes |
 
-Built-in read-only role. Guest IPs via qemu-guest-agent may return 403 — that is fine for v0.
+Built-in read-only role. Guest IPs via qemu-guest-agent may return 403 without `VM.GuestAgent.Audit`; that is expected with plain `PVEAuditor`.
+
 
 ## 3. API token (privilege separation ON)
 
@@ -106,4 +107,5 @@ Expect JSON with `version` / `release`.
 
 - Prefer reaching Proxmox over VPN or a private reverse proxy.
 - Do **not** expose the Proxmox UI (`:8006`) on the public internet.
-- The MCP client only issues `GET` requests; write tools are not implemented in v0.
+- The MCP client only issues `GET` requests; write tools are intentionally out of scope.
+

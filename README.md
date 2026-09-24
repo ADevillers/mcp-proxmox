@@ -2,7 +2,17 @@
 
 Read-only [MCP](https://modelcontextprotocol.io/) server for the [Proxmox VE](https://www.proxmox.com/) API.
 
-**No write tools** in v0. Designed for local MCP clients against a Proxmox cluster reached over a private network (VPN / reverse proxy recommended).
+**Scope is intentional and finished:** GET-only tools, secret redaction, least-privilege token. There is no roadmap to add write/mutate operations. If you need an agent that starts VMs, edits config, or runs backups, use a different project (see [Alternatives](#alternatives)).
+
+Designed for local MCP clients against a Proxmox cluster reached over a private network (VPN / reverse proxy recommended).
+
+## When to use this
+
+- You want structured, current Proxmox state in an MCP client (Cursor, Claude Desktop, Codex, …).
+- You want a hard read-only boundary (HTTP client cannot issue non-GET; no write tools registered).
+- You accept a small fixed tool catalog instead of raw API exploration.
+
+**When not to:** if your agent already has a shell and you can call the Proxmox API with env-backed wrappers / `curl`, that is often simpler and more flexible than maintaining an MCP server. Prefer that when the goal is personal automation, not a shared MCP tool surface.
 
 ## Features
 
@@ -90,6 +100,13 @@ poetry run ruff format --check .
 - Responses are recursively redacted for known secret keys (`password`, `sshkeys`, `token`, …).
 - Use a least-privilege token (`PVEAuditor`) with privilege separation enabled.
 - Do not expose Proxmox `:8006` on the WAN; reach it over VPN or a private reverse proxy.
+
+## Alternatives
+
+- **Shell + API (often better for personal use):** env file + GET-only `curl` / small wrappers. More flexible path coverage; no MCP process to maintain. Secrets stay in the environment instead of a separate MCP config if you already work that way.
+- **Write / manage VMs:** [RekklesNA/ProxmoxMCP-Plus](https://github.com/RekklesNA/ProxmoxMCP-Plus) — MCP + OpenAPI oriented toward controlling VMs, LXCs, backups, and snapshots. Prefer that (or Terraform / Ansible / raw API) if you need mutate.
+
+This repo stays read-only on purpose.
 
 ## License
 
